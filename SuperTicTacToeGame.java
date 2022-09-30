@@ -1,68 +1,88 @@
 package project2;
 
 public class SuperTicTacToeGame {
-	//at some point between select and getGameStatus, you need to determine if someone has won or tied.
-	//either after select, or in getGameStatus
-	private Cell[][] board;
-	private GameStatus status;
-	private int BOARD_SIZE;
-	private int NUM_TO_WIN;
-	private boolean IS_X_TURN;
+    private Cell[][] board;
+    private GameStatus status;
+    private int boardSize;
+    private int numToWin;
+    private int turnCount;
+    private boolean isXTurn;
 
-	public SuperTicTacToeGame() {
-		//TODO: example code, might not work
-		status = GameStatus.IN_PROGRESS;
-		board = new Cell[3][3];
+    public SuperTicTacToeGame(int boardSize, int numToWin, boolean isXFirst){
+        board = new Cell[boardSize][boardSize];
+        status = GameStatus.IN_PROGRESS;
+        turnCount = 0;
+        this.boardSize = boardSize;
+        this.numToWin = numToWin;
+        isXTurn = isXFirst;
 
-		for (int row = 0; row < 3; row++){ 
-			for (int col = 0; col < 3; col++){	
-				board[row][col] = Cell.EMPTY; 
-			}
-		}
-	}
+        for (int row = 0; row < this.boardSize; row++){
+            for (int col = 0; col < this.boardSize; col++){
+                board[row][col] = Cell.EMPTY;
+            }
+        }
+    }
+    public void select(int row, int col){
+        if (!getCell(row, col).equals("EMPTY")){
+            throw new IllegalArgumentException("Cannot place here");
+        }
+        if (isXTurn) {
+            board[row][col] = Cell.X;
+        }
+        else {
+            board[row][col] = Cell.O;
+        }
+        increaseTurnCount(1);
+        changeTurn(getXTurn());
+    }
 
-	public SuperTicTacToeGame(int boardSize, int numToWin, boolean isXFirst) {
-		board = new Cell[boardSize][boardSize];
-		status = GameStatus.IN_PROGRESS;
+    public GameStatus getStatus() {
+        return status;
+    }
+    public int getBoardSize(){
+        return boardSize;
+    }
 
-		BOARD_SIZE = boardSize;
-		NUM_TO_WIN = numToWin;
-		IS_X_TURN = isXFirst;
+    public Cell[][] getBoard(){
+        return board;
+    }
 
-		for (int row = 0; row < BOARD_SIZE; row++){ 
-			for (int col = 0; col < BOARD_SIZE; col++){	
-				board[row][col] = Cell.EMPTY; 
-			}
-		}
+    public GameStatus getGameStatus(){
+        return GameStatus.IN_PROGRESS;
+    }
+    public void reset(){
+        for (int row = 0; row < boardSize; row++){
+            for (int col = 0; col < boardSize; col++){
+                board[row][col] = Cell.EMPTY;
+            }
+        }
+        setTurnCount(0);
+    }
 
-	}
-
-	public void select(int row, int col) {
-		//TODO: need a lot more logic
-		if (IS_X_TURN) {
-			board[row][col] = Cell.X;
-		}
-		else {
-			board[row][col] = Cell.O;
-		}
-		
-	}
-
-	public void reset() {
-		//called from SuperTicTacToePanel to reset the board to a new game
-		//reset does not resize board
-	}
-
-	public GameStatus getGameStatus() {
-		//returns the appropriate enum for if a player has won the game after 
-		//the select method was called
-		//e.g.
-		return GameStatus.IN_PROGRESS;
-	}
-
-	public Cell[][] getBoard() {
-		//this method returns the board to the SuperTicTacToePanel
-		//so the panel can display the board to the user.   
-		return board;
-	}
+    public String getCell(int row, int col){
+        return "" + board[row][col];
+    }
+    public int getTurnCount(){
+        return turnCount;
+    }
+    public void setTurnCount(int count){
+        turnCount = count;
+    }
+    public void increaseTurnCount(int count){
+        turnCount += count;
+    }
+    public void changeTurn(boolean isXTurn){
+        if (isXTurn == true){
+            setXTurn(false);
+        }
+        else{
+            setXTurn(true);
+        }
+    }
+    public boolean getXTurn(){
+        return isXTurn;
+    }
+    public void setXTurn(boolean setTurn){
+        isXTurn = setTurn;
+    }
 }
