@@ -56,7 +56,8 @@ public class SuperTicTacToe {
 					numLoopAgain = true;
 			}while(numLoopAgain);
 		}
-
+		
+		//TODO: fix so that hitting cancel does not throw NullPointerException
 		isXFirstInput = JOptionPane.showInputDialog(null, "Who starts first? X or O");
 		if (isXFirstInput.equalsIgnoreCase("o"))
 			isXFirst = false;
