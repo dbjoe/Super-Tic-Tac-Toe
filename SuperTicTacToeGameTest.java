@@ -68,7 +68,6 @@ public class SuperTicTacToeGameTest {
     	 game.setCell(0, 3, Cell.X);
     	 game.setCell(0, 4, Cell.X);
     	 
-    	 assertEquals(GameStatus.X_WON, game.checkWin(5));
-    	 
+    	 assertEquals(GameStatus.X_WON, game.checkWin(5, Cell.X)); 
     }
 }
