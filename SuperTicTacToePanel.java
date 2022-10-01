@@ -88,8 +88,8 @@ public class SuperTicTacToePanel extends JPanel {
             displayBoard();
 
             // Determine if there is a winner by asking the game object. (see step 6)
-            if (game.getGameStatus() == GameStatus.O_WON) {
-                JOptionPane.showMessageDialog(null, "O won and X” + “lost!\n The game will reset");
+            if (game.getGameStatus().equals(GameStatus.X_WON)) {
+                JOptionPane.showMessageDialog(null, "X won and O” + “lost!\n The game will reset");
 
 
             }
