@@ -72,7 +72,8 @@ public class SuperTicTacToe {
 
 		SuperTicTacToePanel panel = new SuperTicTacToePanel(game);
 		gui.getContentPane().add(panel);
-
+		
+		//TODO: resize frame depending on board size?
 		gui.setSize(1000, 500);
 		gui.setPreferredSize(new Dimension(1000, 500));
 		gui.setVisible(true);
