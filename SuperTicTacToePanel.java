@@ -71,15 +71,9 @@ public class SuperTicTacToePanel extends JPanel {
 				if (iBoard[row][col] == Cell.X) {
 					jButtonsBoard[row][col].setIcon(scaledX);
 				}
-			}
-		for (int row = 0; row < BOARD_SIZE; row++)
-			for (int col = 0; col < BOARD_SIZE; col++) {
 				if (iBoard[row][col] == Cell.O) {
 					jButtonsBoard[row][col].setIcon(scaledO);
 				}
-			}
-		for (int row = 0; row < BOARD_SIZE; row++)
-			for (int col = 0; col < BOARD_SIZE; col++) {
 				if (iBoard[row][col] == Cell.EMPTY) {
 					jButtonsBoard[row][col].setIcon(scaledEmpty);
 				}
@@ -95,7 +89,9 @@ public class SuperTicTacToePanel extends JPanel {
 				System.exit(0);
 			}
 			else if (undoButton == e.getSource()) {
-				//call undo method
+				game.undo();//undoes the AI's last move
+				game.undo();//undoes the player's last move
+				displayBoard();
 			}
 			else {
 				for (int row = 0; row < BOARD_SIZE; row++)
@@ -112,10 +108,16 @@ public class SuperTicTacToePanel extends JPanel {
 			// Determine if there is a winner by asking the game object. (see step 6)
 			if (game.getGameStatus().equals(GameStatus.X_WON)) {
 				JOptionPane.showMessageDialog(null, "X won and O lost! " + "\nThe game will reset");
+				game.reset();
+				displayBoard();
 			} else if (game.getGameStatus().equals(GameStatus.O_WON)) {
 				JOptionPane.showMessageDialog(null, "O won and X lost! " + "\nThe game will reset");
+				game.reset();
+				displayBoard();
 			} else if (game.getGameStatus().equals(GameStatus.CATS)) {
 				JOptionPane.showMessageDialog(null, "Tie! " + "\nThe game will reset");
+				game.reset();
+				displayBoard();
 			}
 		}
 	}
