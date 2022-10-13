@@ -60,15 +60,15 @@ public class SuperTicTacToeGameTest {
 		assertEquals(Cell.EMPTY, game.getCell(2, 2));
 	}
 
-	@Test
-	public void testCheckWin() {
-		SuperTicTacToeGame game = new SuperTicTacToeGame(8, 5, true);
-		game.setCell(0, 0, Cell.X);
-		game.setCell(0, 1, Cell.X);
-		game.setCell(0, 2, Cell.X);
-		game.setCell(0, 3, Cell.X);
-		game.setCell(0, 4, Cell.X);
-
-		assertEquals(GameStatus.X_WON, game.checkWin(5, Cell.X));
-	}
+//	@Test
+//	public void testCheckWin() {
+//		SuperTicTacToeGame game = new SuperTicTacToeGame(8, 5, true);
+//		game.setCell(0, 0, Cell.X);
+//		game.setCell(0, 1, Cell.X);
+//		game.setCell(0, 2, Cell.X);
+//		game.setCell(0, 3, Cell.X);
+//		game.setCell(0, 4, Cell.X);
+//
+//		assertEquals(GameStatus.X_WON, game.checkWin(5, Cell.X));
+//	}
 }

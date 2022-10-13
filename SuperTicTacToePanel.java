@@ -60,8 +60,12 @@ public class SuperTicTacToePanel extends JPanel {
 		undoButton.addActionListener(listener);
 		buttonPanel.add(quitButton);
 		buttonPanel.add(undoButton);
+		
+		//If the computer goes first, we call displayBoard() to show its move
+		if (game.getXTurn())
+			displayBoard();
 	}
-
+	
 	private void displayBoard() {
 
 		iBoard = game.getBoard();
@@ -91,7 +95,6 @@ public class SuperTicTacToePanel extends JPanel {
 			else if (undoButton == e.getSource()) {
 				game.undo();//undoes the AI's last move
 				game.undo();//undoes the player's last move
-				displayBoard();
 			}
 			else {
 				for (int row = 0; row < BOARD_SIZE; row++)
@@ -99,10 +102,8 @@ public class SuperTicTacToePanel extends JPanel {
 						if (jButtonsBoard[row][col] == e.getSource())
 							// tell the game which button was selected.
 							game.select(row, col);
+							game.ai();
 			}
-
-
-			// Display the board using the private method describe above.
 			displayBoard();
 
 			// Determine if there is a winner by asking the game object. (see step 6)

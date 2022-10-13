@@ -17,7 +17,6 @@ public class SuperTicTacToeGame {
 	private ArrayList<Point> undoList;
 
 	public SuperTicTacToeGame(int boardSize, int numToWin, boolean isXFirst) {
-		isXTurn = false;
 		xWin = false;
 		oWin = false;
 		undoList = new ArrayList<Point>();
@@ -29,46 +28,51 @@ public class SuperTicTacToeGame {
 		isXTurn = isXFirst;
 		this.isXFirst = isXFirst;
 
-
 		for (int row = 0; row < this.boardSize; row++) {
 			for (int col = 0; col < this.boardSize; col++) {
 				board[row][col] = Cell.EMPTY;
 			}
 		}
+		
+		if (!isXTurn) {
+			ai();
+		}
 	}
-//call ai after x is done with their turn
+	//call ai after x is done with their turn
 	public void select(int row, int col) {
-		try {
-			if (!getCell(row, col).equals(Cell.EMPTY)) {
-				throw new IllegalArgumentException("Cannot place here");
-			}
-			if (isXTurn) {
-				board[row][col] = Cell.X;
-				undoList.add(new Point(row, col));
-				xWin = checkWin(numToWin, Cell.X);
-			} else {
-				oWin = checkWin(numToWin, Cell.O);
-			}
-
+		Cell cellType;
+		if (isXTurn) 
+			cellType = Cell.X;
+		else
+			cellType = Cell.O;
+		
+		if (!getCell(row, col).equals(Cell.EMPTY)) {
+			//do nothing
+		}
+		else {
+			board[row][col] = cellType;
+			undoList.add(new Point(row, col));
+		}
+		
+		if (isXTurn) {
+			xWin = checkWin(numToWin, Cell.X);
 			if (xWin) {
 				setGameStatus(GameStatus.X_WON);
 			}
-			else if (oWin) {
+		}
+		else {
+			oWin = checkWin(numToWin, Cell.O);
+			if (oWin) {
 				setGameStatus(GameStatus.O_WON);
 			}
-			else if (turnCount == boardSize * boardSize - 1) {
-				setGameStatus(GameStatus.CATS);
-			}
-			if (!xWin && !oWin && !(turnCount == boardSize * boardSize - 1)) {
-				increaseTurnCount();
-				changeTurn(getXTurn());
-				ai();
-				changeTurn(getXTurn());//try here
-			}
 		}
-		catch (IllegalArgumentException e) {
-			//catch where it can not be placed and do nothing. Don't place it
+
+		if (turnCount == boardSize * boardSize && !xWin && !oWin) {
+			setGameStatus(GameStatus.CATS);
 		}
+		
+		turnCount++;
+		changeTurn(getXTurn());
 	}
 
 	public int getBoardSize() {
@@ -98,6 +102,7 @@ public class SuperTicTacToeGame {
 		xWin = false;
 		oWin = false;
 		setGameStatus(GameStatus.IN_PROGRESS);
+		ai();
 	}
 
 	public Cell getCell(int row, int col) {
@@ -114,10 +119,6 @@ public class SuperTicTacToeGame {
 
 	public void setTurnCount(int count) {
 		turnCount = count;
-	}
-
-	public void increaseTurnCount() {
-		turnCount += 1;
 	}
 
 	public void changeTurn(boolean isXTurn) {
@@ -138,10 +139,10 @@ public class SuperTicTacToeGame {
 
 	private boolean checkWin(int numToWin, Cell cellType){//if a ___ won
 		if (checkWinRow(numToWin, cellType) || //row
-			checkWinColumn(numToWin, cellType) ||//column
-			checkWinDRDiagonal(numToWin, cellType) ||//downright diag
-			checkWinURDiagonal(numToWin, cellType)){//upright diag
-				return true;//return a win
+				checkWinColumn(numToWin, cellType) ||//column
+				checkWinDRDiagonal(numToWin, cellType) ||//downright diag
+				checkWinURDiagonal(numToWin, cellType)){//upright diag
+			return true;//return a win
 		}
 		return false;//otherwise don't return a win
 	}
@@ -188,45 +189,45 @@ public class SuperTicTacToeGame {
 		return false;//otherwise return false for a column win
 	}
 
-    // check diagonally from top left to bottom right
-    public boolean checkWinDRDiagonal(int numToWin, Cell cellType) {
-        int count;
-        int row;
-        for (int i = numToWin - boardSize; i <= 0; i++) {
-            row = Math.abs(i);
+	// check diagonally from top left to bottom right
+	private boolean checkWinDRDiagonal(int numToWin, Cell cellType) {
+		int count;
+		int row;
+		for (int i = numToWin - boardSize; i <= 0; i++) {
+			row = Math.abs(i);
 
-            for (int j = 0; j < boardSize; j++) {
-                count = 0;
-                while (j < boardSize && board[row][j].equals(cellType)) {
-                    count++;
-                    board[row][j] = board[row++][j++];
-                    if (count >= numToWin)
-                        return true;
-                }
-            }
-        }
-        return false;
-    }
+			for (int j = 0; j < boardSize; j++) {
+				count = 0;
+				while (j < boardSize && board[row][j].equals(cellType)) {
+					count++;
+					board[row][j] = board[row++][j++];
+					if (count >= numToWin)
+						return true;
+				}
+			}
+		}
+		return false;
+	}
 
-    // check diagonally from top right to bottom left
-    public boolean checkWinURDiagonal(int numToWin, Cell cellType) {
-        int count;
-        int row;
-        for (int i = numToWin - boardSize; i <= 0; i++) {
-            row = Math.abs(i);
+	// check diagonally from top right to bottom left
+	private boolean checkWinURDiagonal(int numToWin, Cell cellType) {
+		int count;
+		int row;
+		for (int i = numToWin - boardSize; i <= 0; i++) {
+			row = Math.abs(i);
 
-            for (int j = boardSize - 1; j > 0; j--) {
-                count = 0;
-                while (j >= 0 && board[row][j].equals(cellType)) {
-                    count++;
-                    board[row][j] = board[row++][j--];
-                    if (count >= numToWin)
-                        return true;
-                }
-            }
-        }
-        return false;
-    }
+			for (int j = boardSize - 1; j > 0; j--) {
+				count = 0;
+				while (j >= 0 && board[row][j].equals(cellType)) {
+					count++;
+					board[row][j] = board[row++][j--];
+					if (count >= numToWin)
+						return true;
+				}
+			}
+		}
+		return false;
+	}
 
 
 	public Point undo() {
@@ -240,30 +241,19 @@ public class SuperTicTacToeGame {
 		else//if there are not valid moves to undo
 			return null;//Don't do anything
 	}
-
+	//Should AI make decisions based on undoList? Check around the squares X recently played
 	public void ai() {
-		if (!isXTurn) {//if it is the ai turn
-			if (turnCount < 3) {//if it is the ai's first turn
-				Random randomGen = new Random();
-				int upperbound = boardSize;
-				int randomColumn = randomGen.nextInt(upperbound);
-				int randomRow = randomGen.nextInt(upperbound);
-				board[randomRow][randomColumn] = Cell.O;
-				increaseTurnCount();
-				undoList.add(new Point(randomRow, randomColumn));
-			}
-//			else {
-//				if (ai can win) {
-//					place mark in winning spot;
-//				}
-//				else if (player will win) {
-//					place mark to not lose;
-//				}
-//				else {
-//					connect mark to previous mark(s);
-//				}
-//			}
+		if (turnCount == 1) {
+			Random randomGen = new Random();
+			int randRow = randomGen.nextInt(boardSize);
+			int randCol = randomGen.nextInt(boardSize);
+			select(randRow, randCol);
+		}
+		else {
+			Random randomGen = new Random();
+			int randRow = randomGen.nextInt(boardSize);
+			int randCol = randomGen.nextInt(boardSize);
+			select(randRow, randCol);
 		}
 	}
-
 }
