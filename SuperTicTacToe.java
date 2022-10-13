@@ -92,8 +92,4 @@ public class SuperTicTacToe {
 		gui.setPreferredSize(new Dimension(1000, 500));
 		gui.setVisible(true);
 	}
-
-	public static void validInput() {
-
-	}
 }
