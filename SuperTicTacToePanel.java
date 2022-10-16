@@ -97,12 +97,16 @@ public class SuperTicTacToePanel extends JPanel {
 				game.undo();//undoes the player's last move
 			}
 			else {
-				for (int row = 0; row < BOARD_SIZE; row++)
-					for (int col = 0; col < BOARD_SIZE; col++)
-						if (jButtonsBoard[row][col] == e.getSource())
-							// tell the game which button was selected.
-							game.select(row, col);
-							game.ai();
+				if(game.getXTurn()){
+					for (int row = 0; row < BOARD_SIZE; row++)
+						for (int col = 0; col < BOARD_SIZE; col++)
+							if (jButtonsBoard[row][col] == e.getSource())
+								if (game.isMoveValid(row,col)){// tell the game which button was selected.
+									game.playersTurn(row, col);
+									if(game.getGameStatus()==GameStatus.IN_PROGRESS)
+										game.ai();
+								}
+				}
 			}
 			displayBoard();
 

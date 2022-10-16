@@ -88,8 +88,8 @@ public class SuperTicTacToe {
 		gui.getContentPane().add(panel);
 		
 		//TODO: resize frame depending on board size?
-		gui.setSize(1000, 500);
-		gui.setPreferredSize(new Dimension(1000, 500));
+		gui.setSize(1100, 700);
+		gui.setPreferredSize(new Dimension(1100, 700));
 		gui.setVisible(true);
 	}
 }
