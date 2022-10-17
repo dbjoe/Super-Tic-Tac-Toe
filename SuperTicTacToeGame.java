@@ -8,7 +8,7 @@ import java.util.Random;
  * A class that represents the game of SuperTicTacToe based on
  * a variable board size, number of connections, and is x first
  * @author Gabe Kucinich, Zay Price, Joe Zylla
- * @version 10/16/2022
+ * @version 10/17/2022
  */
 public class SuperTicTacToeGame {
 	/**
@@ -55,9 +55,9 @@ public class SuperTicTacToeGame {
 	/**
 	 * Constructs a SuperTicTacToe game given a boardSize,
 	 *  numToWin, and isXFirst.
-	 * @param boardSize
-	 * @param numToWin
-	 * @param isXFirst
+	 * @param boardSize the size of the board
+	 * @param numToWin the number of connections in a row to win
+	 * @param isXFirst whether or not x makes the first move
 	 */
 	public SuperTicTacToeGame(int boardSize, int numToWin, 
 			boolean isXFirst) {
@@ -85,8 +85,8 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * uses the select method given row and column based on player turn
-	 * @param row
-	 * @param col
+	 * @param row the row to be selected
+	 * @param col the column to be selected
 	 */
 	public void playersTurn(int row, int col){
 		select(row,col);
@@ -95,8 +95,8 @@ public class SuperTicTacToeGame {
 	/**
 	 * sets cells to x or o based on isXTurn and the passed row and col
 	 * checks to make sure move is valid (not an occupied spot)
-	 * @param row
-	 * @param col
+	 * @param row the row to be selected
+	 * @param col the column to be selected
 	 */
 	public void select(int row, int col) {
 		Cell cellType;
@@ -139,7 +139,7 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * gets the size of the board as an int
-	 * @return boardSize
+	 * @return boardSize the size of the board
 	 */
 	public int getBoardSize() {
 		return boardSize;
@@ -147,15 +147,15 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * gets the num to win
-	 * @return numToWin
+	 * @return numToWin the number of connections needed to win
 	 */
 	public int getNumToWin() {
 		return numToWin;
 	}
 
 	/**
-	 * returns the Cell[][] board
-	 * @return board
+	 * returns the two dimensional array of cells called board
+	 * @return board returns the board
 	 */
 	public Cell[][] getBoard() {
 		return board;
@@ -163,7 +163,7 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * sets the game status to the provided status
-	 * @param status
+	 * @param status returns the current status 
 	 */
 	public void setGameStatus(GameStatus status) {
 		this.status = status;
@@ -198,9 +198,9 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * a method to get the cell at a the specified row and col
-	 * @param row
-	 * @param col
-	 * @return board[row][col]
+	 * @param row the row of the cell
+	 * @param col the column of the cell
+	 * @return board[row][col] the board space at the row and column
 	 */
 	public Cell getCell(int row, int col) {
 		return board[row][col];
@@ -208,15 +208,15 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * a method to set the turnCount to the specified count
-	 * @param count
+	 * @param count the turn count to be set
 	 */
 	public void setTurnCount(int count) {
 		turnCount = count;
 	}
 
 	/**
-	 * a  method to change the turn
-	 * @param isXTurn
+	 * a method to change the turn
+	 * @param isXTurn if it is x's turn
 	 */
 	public void changeTurn(boolean isXTurn) {
 		if (isXTurn == true) {
@@ -228,7 +228,7 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * a method to get if it is x's turn
-	 * @return isXTurn
+	 * @return isXTurn if it is x's turn
 	 */
 	public boolean getXTurn() {
 		return isXTurn;
@@ -236,7 +236,7 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * a method to set x's turn
-	 * @param setTurn
+	 * @param setTurn whether or not to set it as x's turn
 	 */
 	public void setXTurn(boolean setTurn) {
 		isXTurn = setTurn;
@@ -244,8 +244,8 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * a method to check if any win has occurred
-	 * @param numToWin
-	 * @param cellType
+	 * @param numToWin the number of connections to win
+	 * @param cellType the type of cell as X or O
 	 * @return if a win has occurred
 	 */
 	private boolean checkWin(int numToWin, Cell cellType){
@@ -270,9 +270,9 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * a method that checks rows for a win
-	 * @param numToWin
-	 * @param cellType
-	 * @return p
+	 * @param numToWin the number of connections needed to win
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting a win or -1's denoting not
 	 */
 	private Point checkAllRows(int numToWin, Cell cellType) {	
 		Point p = new Point(-1,-1);
@@ -288,9 +288,10 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * method to check a single row for a win of type cellType
-	 * @param row
-	 * @param numToWin
-	 * @param cellType
+	 * @param row the row to be checked
+	 * @param numToWin the number of connections needed to win
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting a win or -1's denoting not
 	 */
 	private Point checkSingleRow(int row, int numToWin, Cell cellType){
 		int count;
@@ -313,9 +314,11 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * method to check all columns for a win
-	 * @param numToWin
-	 * @param cellType
+	 * @param numToWin the number of connections needed to win
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting a win or -1's denoting not
 	 */
+
 	private Point checkAllColumns(int numToWin, Cell cellType){
 		Point p = new Point(-1,-1);
 		for (int col = 0; col < boardSize; col++) {//for all columns
@@ -329,10 +332,11 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * a method to check single columns for a win of type cellType
-	 * @param col
-	 * @param numToWin
-	 * @param cellType
-	 */	
+	 * @param col the column to be checked
+	 * @param numToWin the number of connections needed to win
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting a win or -1's denoting not
+	 */
 	private Point checkSingleColumn(int col, int numToWin, 
 			Cell cellType) {
 		int count;
@@ -355,8 +359,9 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * check diagonally from top left to bottom right for a win
-	 * @param numToWin
-	 * @param cellType
+	 * @param numToWin the number of connections needed to win
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting a win or -1's denoting not
 	 */
 	private Point checkAllDiagonal1s(int numToWin, Cell cellType) {
 		Point p = new Point(-1,-1);
@@ -372,10 +377,11 @@ public class SuperTicTacToeGame {
 
 	/**
 	 * checks single diagonal1s for a win of type cellType
-	 * @param row
-	 * @param col
-	 * @param numToWin
-	 * @param cellType
+	 * @param row the row being checked
+	 * @param col the column being checked
+	 * @param numToWin the number of connections needed to win
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting a win or -1's denoting not
 	 */
 	private Point checkSingleDiagonal1(int row, int col, int numToWin,
 			Cell cellType) {
@@ -412,10 +418,11 @@ public class SuperTicTacToeGame {
 		return p;
 	}
 
-	/*
+	/**
 	 * check for win diagonally from top right to bottom left 
-	 * @param numToWin
-	 * @param cellType
+	 * @param numToWin the number of moves
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting a win or -1's denoting not
 	 */
 	private Point checkAllDiagonal2s(int numToWin, Cell cellType) {
 		Point p = new Point(-1,-1);
@@ -430,12 +437,13 @@ public class SuperTicTacToeGame {
 	}
 
 	/**
-	* a method that checks single diagonal2s for a win of type cellType
-	* @param row
-	* @param col
-	* @param numToWin
-	* @param cellType
-	*/
+	 * a method that checks single diagonal2s for a win of type cellType
+	 * @param row the row to be checked
+	 * @param col the column to be checked
+	 * @param numToWin the number of connections needed to win
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting a win or -1's denoting not
+	 */
 	private Point checkSingleDiagonal2(int row, int col, int numToWin,
 								       Cell cellType) {
 		int count = 0;
@@ -472,29 +480,24 @@ public class SuperTicTacToeGame {
 
 
 	/**
-	 * a method that undoes a point and returns it if available
-	 * @return p or null
+	 * a method that undoes a point if there is a point to undo
 	 */
-	public Point undo() {
+	public void undo() {
 		//if there are valid moves to undo
-		if(undoList.size() > 0 && isXFirst) {
+		if(undoList.size() > 0 && isXTurn) {
 			turnCount -= 1;
 			Point p = undoList.remove(undoList.size()-1);//a new point
 			//equals the last point in undoList and removes it
 			board[p.x][p.y] = Cell.EMPTY;//set the cell back to empty
-			return p;//return the point to undo
 		}
-		else if (undoList.size() > 1 && !isXFirst){
+		else if (undoList.size() > 1 && !isXTurn){
 			turnCount -= 1;
 			Point p = undoList.remove(undoList.size()-1);//a new point
 			//equals the last point in undoList and removes it
 			board[p.x][p.y] = Cell.EMPTY;//set the cell back to empty
-			return p;//return the point to undo
 		}
 		//else if prevents undo past ai's first move; 
 		//without it the turn order changes.
-		else//if there are not valid moves to undo
-			return null;//Don't do anything
 	}
 
 	/**
@@ -564,10 +567,10 @@ public class SuperTicTacToeGame {
 	 * Finds a square based on whether a suitable choice exists in the
 	 * row, column, diagonal1, or diagonal2 of the move passed to it.
 	 * If no square is found, returns Point with values of (-1,-1)
-	 * @param move
-	 * @param numTarget
-	 * @param cellType
-	 * @return Point
+	 * @param move the initial move to be found
+	 * @param numTarget the target number
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting valid or -1's denoting not
 	 */
 	private Point findSquare(Point move, int numTarget, Cell cellType){
 		Point p = new Point(-1,-1);
@@ -588,28 +591,25 @@ public class SuperTicTacToeGame {
 	/**
 	 * Finds a square next to the move passed to it
 	 * If no empty square exists, returns Point with values of (-1,-1)
-	 * @param move
-	 * @return Point
+	 * @param move the point trying to be connected to
+	 * @return p a positive point denoting valid or -1's denoting not
 	 */
 	private Point findNear(Point move) {
-		Point p = new Point(-1,-1);
-
-		for (int i = -1; i < 1; i++) {
-			for (int j = -1; j < 1; j++) {
-				if (isMoveValid(move.x+i, move.y+j)) {
-					move.setLocation(move.x+i, move.y+j);
-					return move; 
+		Point p = new Point(-1,-1);//new point p for reference at -1,-1
+		for (int i = -1; i < 2; i++) {//for int within 1 of move x
+			for (int j = -1; j < 2; j++) {//for int within 1 of move y
+				if(isMoveValid(move.x+i,move.y+j)){//if move valid
+					p.setLocation(move.x+i, move.y+j);//set the point
 				}
 			}
 		}
-
 		return p;
 	}
 	
 	/**
 	 * Selects a random square on the board as a last resort.
-	 * @param p
-	 * @return Point
+	 * @param p a point to be checked and set random
+	 * @return p a random, valid point
 	 */
 	private Point rand(Point p) {
 		Random randomGen = new Random();
@@ -628,10 +628,10 @@ public class SuperTicTacToeGame {
 	/**
 	 * If the parameter move created a string of numTarget cells in
 	 *  a row, try to find an empty square to either block or add to it
-	 * @param move
-	 * @param numTarget
-	 * @param cellType
-	 * @return Point
+	 * @param move a point of a move
+	 * @param numTarget the target number
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting valid or -1's denoting not
 	 */
 	private Point scanRow(Point move, int numTarget, Cell cellType){
 		Point p = checkSingleRow(move.x, numTarget, cellType);
@@ -664,10 +664,10 @@ public class SuperTicTacToeGame {
 	/**
 	 * If the parameter move created a string of numTarget cells in a
 	 * column, find an empty square to either block or add to it
-	 * @param move
-	 * @param numTarget
-	 * @param cellType
-	 * @return Point
+	 * @param move a point of a move
+	 * @param numTarget the target number
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting valid or -1's denoting not
 	 */
 	private Point scanColumn(Point move, int numTarget, Cell cellType){
 		Point p = checkSingleColumn(move.y, numTarget, cellType);
@@ -700,10 +700,10 @@ public class SuperTicTacToeGame {
 	/**
 	 * If the parameter move created a string of numTarget cells in a
 	 * diagonal1, find an empty square to either block or add to it
-	 * @param move
-	 * @param numTarget
-	 * @param cellType
-	 * @return Point
+	 * @param move a point of a move
+	 * @param numTarget the target number
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting valid or -1's denoting not
 	 */
 	private Point scanDiagonal1(Point move, int numTarget,
 								Cell cellType) {
@@ -740,10 +740,10 @@ public class SuperTicTacToeGame {
 	/**
 	 * If the parameter move created a string of numTarget cells in a
 	 * diagonal1, find an empty square to either block or add to it
-	 * @param move
-	 * @param numTarget
-	 * @param cellType
-	 * @return Point
+	 * @param move a point of a move
+	 * @param numTarget the target number
+	 * @param cellType the type of cell as X, O, or EMPTY
+	 * @return p a positive point denoting valid or -1's denoting not
 	 */
 	private Point scanDiagonal2(Point move, int numTarget, 
 							    Cell cellType) {
@@ -787,7 +787,7 @@ public class SuperTicTacToeGame {
 	
 	/**
 	 * Check if there is an empty space in the board
-	 * @return boolean
+	 * @return emptySpace a boolean denoting if the space is empty
 	 */
 	public boolean checkForEmptySpace(){
 		boolean emptySpace = false;
@@ -806,9 +806,9 @@ public class SuperTicTacToeGame {
 	/**
 	 * Check if the row and column parameters are within the board
 	 * and if the square at the space is empty
-	 * @param row
-	 * @param col
-	 * @return
+	 * @param row the row to be checked
+	 * @param col the column to be checked
+	 * @return the validity of the move as true or false
 	 */
 	public boolean isMoveValid(int row, int col){
 		if (0 <= row && row < boardSize && 
